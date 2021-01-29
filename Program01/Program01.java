@@ -41,17 +41,16 @@ public class Program01{
     }
     public static int dealCard(boolean [] deck){
         int cardNum = (int)Math.floor(Math.random() * 52);
-        if(deck[cardNum] == true){ 
-            deck[cardNum] = false;
-            return cardNum;
+        while(deck[cardNum] != true){ 
+            cardNum = (int)Math.floor(Math.random() * 52);
+
         }
-        return -1;
+        deck[cardNum] = false;
+        return cardNum;
      }
     public static void printCard(int card){
-    	 String [] numberDeck = {"1S","2S","3S","4S","5S","6S","7S","8S","9S","10S","JS","QS","KS","1D","2D","3D","4D","5D","6D","7D","8D","9D","10D","JD","QD","KD","1H","2H","3H","4H","5H","6H","7H","8H","9H","10H","JH","QH","KH","1C","2C","3C","4C","5C","6C","7C","8C","9C","10C","JC","QC","KC"}; 
-    	if(card != -1) {
-            System.out.print(numberDeck[card]);
-        }
+    	String [] numberDeck = {"1S","2S","3S","4S","5S","6S","7S","8S","9S","10S","JS","QS","KS","1D","2D","3D","4D","5D","6D","7D","8D","9D","10D","JD","QD","KD","1H","2H","3H","4H","5H","6H","7H","8H","9H","10H","JH","QH","KH","1C","2C","3C","4C","5C","6C","7C","8C","9C","10C","JC","QC","KC"}; 
+        System.out.print(numberDeck[card]);
         
     }
 }
