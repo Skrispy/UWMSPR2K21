@@ -1,11 +1,11 @@
-public class Card{
+public class Card {
 
     private String suit;
     private int rank;
 
     public Card(){
-        this.suit = "Clubs"
-        this.rank = 0;
+        this.suit = "Clubs";
+        this.rank = 1;
     }
 
     public Card (int r, String s){
@@ -20,7 +20,7 @@ public class Card{
     }
 
     public String toString(){
-        String rank;
+        String rank = "";
         if(this.rank == 1){
             rank = "Ace";
         } else if(this.rank == 11){
@@ -29,6 +29,8 @@ public class Card{
             rank = "Queen";
         } else if(this.rank == 13){
             rank = "King";
+        } else{
+            rank = this.rank.toString();
         }
         String s = this.suit;
         return rank + " of " + s;
