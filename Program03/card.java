@@ -8,11 +8,12 @@ public class Card {
         this.rank = 1;
     }
 
-    public Card (int r, String s){
+    public Card (int r, String s) {
         s = s.substring(0, 1).toUpperCase() + s.substring(1);
+        
 
-        if(s == "Club" || s == "Diamond" || s == "Spade" ||s == "Heart"){
-             if(r < 0 && r>14){
+        if(s.equals("Club") || s.equals("Diamond") || s.equals("Spade") ||s.equals("Heart")){
+             if(r > 0 && r<14){
                  this.suit = s;
                   this.rank = r;
              }
@@ -30,7 +31,7 @@ public class Card {
         } else if(this.rank == 13){
             rank = "King";
         } else{
-            rank = this.rank.toString();
+            rank = String.valueOf(this.rank);
         }
         String s = this.suit;
         return rank + " of " + s;
@@ -44,7 +45,7 @@ public class Card {
     }
     
     public boolean equals(Card guest){
-        if(guest.suit == this.suit && guest.rank == this.rank){
+        if(guest.suit.equals(this.suit) && guest.rank == this.rank){
             return true;
         } else{
             return false;
