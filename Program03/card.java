@@ -4,48 +4,63 @@ public class Card {
     private int rank;
 
     public Card(){
-        this.suit = "Clubs";
-        this.rank = 1;
+        this(1,"Clubs");
     }
 
     public Card (int r, String s) {
-        s = s.substring(0, 1).toUpperCase() + s.substring(1);
-        
+        this.setRank(r);
+        this.setSuit(s);
+    }
 
+    public int getRank(){
+        return this.rank;
+    }
+    public String getSuit(){
+        return this.suit;
+    }
+
+    private void setRank(int r){
+        if(r > 0 && r<14){
+            this.rank = r;
+        } else{
+            return;
+        }
+    }
+
+    
+    private void setSuit(String s){
+        s = s.substring(0, 1).toUpperCase() + s.substring(1);
         if(s.equals("Club") || s.equals("Diamond") || s.equals("Spade") ||s.equals("Heart")){
-             if(r > 0 && r<14){
-                 this.suit = s;
-                  this.rank = r;
-             }
-          }
+            this.suit = s;
+        }
     }
 
     public String toString(){
-        String rank = "";
-        if(this.rank == 1){
-            rank = "Ace";
-        } else if(this.rank == 11){
-            rank = "Jack";
-        } else if(this.rank == 12){
-            rank = "Queen";
-        } else if(this.rank == 13){
-            rank = "King";
-        } else{
-            rank = String.valueOf(this.rank);
+        String rankStr = "";
+        int rank = this.getRank();
+        if(rank == 1){
+            rankStr = "Ace";
+        } else if(rank == 11){
+            rankStr = "Jack";
+        } else if(rank == 12){
+            rankStr = "Queen";
+        } else if(rank == 13){
+            rankStr = "King";
+        } else {
+            rankStr = String.valueOf(rank);
         }
-        String s = this.suit;
-        return rank + " of " + s;
+        return rankStr + " of " + this.getSuit();
     }
 
     public Card clone(){
         Card card = new Card();
-        card.suit = this.suit;
-        card.rank = this.rank;
+        card.suit = this.getSuit();
+        card.rank = this.getRank();
         return card;
     }
     
     public boolean equals(Card guest){
-        if(guest.suit.equals(this.suit) && guest.rank == this.rank){
+        if(guest.suit.equals(this.getSuit()) && guest.rank == this.getRank()){
             return true;
         } else{
             return false;
