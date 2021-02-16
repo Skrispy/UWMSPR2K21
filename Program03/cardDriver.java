@@ -2,9 +2,11 @@ public class CardDriver{
     public static void main(String [] args) {
         //declare array
         Card [] cards = new Card[52];
-        Card test = new Card(0,"Sammy");
-        System.out.println(test.toString());
 
+        //test invalid card
+        Card test = new Card(999,"pig");
+        System.out.println(test.toString());
+        
         //deck instantiation
         String [] suits = {"Diamond","Spade","Club","Heart"};
         int p = 0;

@@ -4,7 +4,7 @@ public class Card {
     private int rank;
 
     public Card(){
-        this(1,"Clubs");
+        this(1,"Club");
     }
 
     public Card (int r, String s) {
@@ -22,9 +22,7 @@ public class Card {
     private void setRank(int r){
         if(r > 0 && r<14){
             this.rank = r;
-        } else{
-            return;
-        }
+        } 
     }
 
     
@@ -38,18 +36,23 @@ public class Card {
     public String toString(){
         String rankStr = "";
         int rank = this.getRank();
-        if(rank == 1){
-            rankStr = "Ace";
-        } else if(rank == 11){
-            rankStr = "Jack";
-        } else if(rank == 12){
-            rankStr = "Queen";
-        } else if(rank == 13){
-            rankStr = "King";
-        } else {
-            rankStr = String.valueOf(rank);
-        }
-        return rankStr + " of " + this.getSuit();
+        if(rank > 0 && rank<14 && this.getSuit() != null){
+         
+            if(rank == 1){
+               rankStr = "Ace";
+            } else if(rank == 11){
+                rankStr = "Jack";
+            } else if(rank == 12){
+                rankStr = "Queen";
+            } else if(rank == 13){
+                rankStr = "King";
+            } else {
+                rankStr = String.valueOf(rank);
+            }
+            
+            return rankStr + " of " + this.getSuit();
+         }
+         return rankStr;
     }
 
     public Card clone(){
