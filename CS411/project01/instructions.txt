@@ -1,0 +1,30 @@
+In this assignment you will use scikit-learn (sklearn) library to generate and evaluate decision trees.
+
+1. First go through sklearn.pptx slides posted under this week's module. It goes over what you will need for this assignment. If needed, go over IDLE.pptx slides.
+
+2. Choose a dataset from OpenML (https://www.openml.org/search?type=data (Links to an external site.)). It must have:
+
+All numeric features (sklearn decision trees currently do not directly handle nominal features)
+Nominal target (i.e. classification task)
+At least 1000 examples (or instances). Avoid a dataset with very large number of examples (e.g. 100,000) because that may take long computational time.
+No text or image based data.
+3. On this dataset, determine as shown in sklearn.pptx slides:
+
+(a) Accuracy when tested on the training data itself (i.e. entire data)
+
+(b) Average accuracy over 10-fold cross-validation
+
+Evaluate the above two with at least five different values of the min_samples_leaf parameter from very low to very high. Vary the values so that you see overfitting with very low value and underfitting (does not even fit the training data) with very high value. It is not necessary to find the optimal parameter value. Do this by writing a Python function in a file that takes the parameter value as an argument and prints the two accuracies.
+
+Submission:
+
+Submit the following:
+
+1. The Python program .py file in which you wrote the function mentioned above. The program should include loading the data step as well. The user should be able to run the program by importing the file. See the posted sample.py as an example program file (you do not need to print what it prints).
+
+2. A short report that includes:
+
+A brief description of the dataset (what is the task, what are the features and the target)
+A table that shows the two accuracies varied with the min_samples_leaf parameter
+Your thoughts on the results (if necessary, include decision tree(s) or its parts in text or image form)
+Conclusion
