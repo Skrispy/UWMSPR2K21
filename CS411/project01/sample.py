@@ -27,4 +27,6 @@ def main() :
 
     myfig.savefig("decision_tree.jpg")    
     print("The tree has been saved to decision_tree.jpg file.")
+
 main()
+
