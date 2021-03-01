@@ -33,16 +33,17 @@ def main():
             myfig = pyplot.figure(figsize=(25,25))
             a = tree.plot_tree(mytree, filled=True)
             myfig.savefig("dectree_" + str(x) + ".jpg")
-    
+   
     value = 1
     while(value>=1):
         value = int(input('Choose a min leaf value >= 1 (-1) to exit:'))
-        run(value)1
+        run(value)
     
 
-    """
+    '''
     sample_leaves = [1,5,8,10,17,50,99,150]
     for x in sample_leaves:
         run(x)
-    """
+    '''
+    
 main()
