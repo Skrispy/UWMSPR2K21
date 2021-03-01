@@ -7,16 +7,14 @@ public class DynArray{
         this.array = new double[1];
         this.size = 1;
         this.nextIndex = 0;
-    }
 
+    }
     public int arraySize(){
         return this.size;
     }
-
     public int elements(){
         return this.nextIndex;
     }
-
     public double at(int index){
         if(0<=index && index<nextIndex){
             return array[index];
@@ -24,44 +22,72 @@ public class DynArray{
             return Double.NaN;
         }
     }
-
     private void grow(){
         int sizeDub = arraySize()*2;
-        double arrHold = new double[sizeDub];
-        for(int x = 0; x < arraySize(); x++){
+        double [] arrHold = new double[sizeDub];
+        for(int x = 0; x < elements(); x++){
             arrHold[x] = this.array[x];
         }
         this.array = arrHold;
         this.size = sizeDub;
-        this.nextIndex = sizeDub-1;
     }
 
     private void shrink(){
         int sizeHalf = arraySize()/2;
-        this.array = new double[sizeHalf];
+        double [] arrHold = new double[sizeHalf];
+        for(int x = 0; x < elements(); x++){
+            arrHold[x] = this.array[x];
+        }
+        this.array = arrHold;
         this.size = sizeHalf;
-        this.nextIndex = sizeHalf-1;
     }
 
     public void insertAt(int index, double value){
-        if(0<=index && index <=nextIndex){
-            if(index == nextIndex){
+        if(0<=index && index <=elements()){
+            if(elements() == arraySize()){
                 grow();
             }
-            for(int x = index; x < arraySize();x++){
-                double hold = at(index);
-                this.array[x]=value;
-                this.array[x+1]
+            double hold = at(index);
+            this.array[index] = value;
+            this.nextIndex++;
+            for(int x = index+1; x < elements();x++){
+                this.array[x] = hold;
+                hold = at(x);
             }
+            
         }
     }
-    
     public void insert(double value){
-        this.array[this.nextIndex] = value;
+        insertAt(elements(),value);
     }
     public double removeAt(int index){
-
+        if(0<=index && index <=elements()){
+            double hold = at(index);
+            for(int x = index + 1; x < elements();x++){
+                this.array[x] = at(x);
+                hold = at(x);
+            }
+            this.nextIndex--;
+            if(arraySize()/2 > elements()){
+                shrink();
+            }
+            return hold;
+        }
+        return Double.NaN;
     }
+    public double remove(){
+        return removeAt(elements()-1);
+    }
+
+    public void printArray(){
+        for(int x = 0; x<elements();x++){
+            System.out.println(at(x));
+        }
+            
+    }
+
+
+
 
 
 
