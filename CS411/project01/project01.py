@@ -32,6 +32,7 @@ def main():
         if plotDec.lower() == 'y':
             myfig = pyplot.figure(figsize=(25,25))
             a = tree.plot_tree(mytree, filled=True)
+            print(type(myfig))
             myfig.savefig("dectree_" + str(x) + ".jpg")
    
     value = 1

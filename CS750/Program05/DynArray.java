@@ -7,14 +7,16 @@ public class DynArray{
         this.array = new double[1];
         this.size = 1;
         this.nextIndex = 0;
-
     }
+
     public int arraySize(){
         return this.size;
     }
+
     public int elements(){
         return this.nextIndex;
     }
+
     public double at(int index){
         if(0<=index && index<nextIndex){
             return array[index];
@@ -22,6 +24,7 @@ public class DynArray{
             return Double.NaN;
         }
     }
+
     private void grow(){
         int sizeDub = arraySize()*2;
         double arrHold = new double[sizeDub];
@@ -52,6 +55,7 @@ public class DynArray{
             }
         }
     }
+    
     public void insert(double value){
         this.array[this.nextIndex] = value;
     }
