@@ -1,5 +1,7 @@
 package CS750.Program06;
+
 public class DynArray{
+
     private double [] array;
     private int size;
     private int nextIndex;
@@ -8,8 +10,8 @@ public class DynArray{
         this.array = new double[1];
         this.size = 1;
         this.nextIndex = 0;
-
     }
+
     public int arraySize(){
         return this.size;
     }

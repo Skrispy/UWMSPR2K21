@@ -1,10 +1,11 @@
 package CS750.Program06;
 
-public class Stack extends DynArray{
+public class Queue extends DynArray{
 
-    public Stack(){
+    public Queue(){
         super();
     }
+
     public int size(){
         return this.arraySize();
     }
@@ -12,17 +13,18 @@ public class Stack extends DynArray{
         return this.arraySize() == 0;
     }
 
-    public void push(double value){
-        this.insert(value);
+    public void que(double value){
+        this.insertAt(0,value);
     }
-    public double pop(){
+    public double deQue(){
         if(!isEmpty()){
             return this.remove();
         }
         return Double.NaN;
     }
-    public void stackDump(){
-        for(int i = this.size();i>=0;i--){
+    public void queueDump(){
+        for(int i = 0;i<this.size();i++)
+        {
             System.out.println(this.at(i)); 
         }
     }
