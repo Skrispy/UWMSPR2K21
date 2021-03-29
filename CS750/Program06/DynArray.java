@@ -1,5 +1,3 @@
-package CS750.Program06;
-
 public class DynArray{
 
     private double [] array;
@@ -53,7 +51,7 @@ public class DynArray{
             double hold = at(index);
             this.array[index] = value;
             this.nextIndex++;
-            for(int x = index+1; x < elements();x++){
+            for(int x = index+1; x <elements();x++){
                 this.array[x] = hold;
                 hold = at(x);
             }

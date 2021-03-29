@@ -1,4 +1,3 @@
-package CS750.Program06;
 
 public class StackQueueDriver
 {
@@ -33,8 +32,10 @@ System.out.println("\n");
       System.out.println("\tqueing " + value);
       myQueue.que(value);
     }
+   
     System.out.println("\nQueue Dump:");
     myQueue.queueDump();
+    System.out.println(myQueue.deQue());
     System.out.println("\nEmptying Queue:");
     while(!myQueue.isEmpty())
     {
