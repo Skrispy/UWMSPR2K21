@@ -46,18 +46,33 @@ public class DynArray{
     public void insertAt(int index, double value){
         if(0<=index && index <=elements()){
             if(elements() == arraySize()){
-                grow();
+            grow();
             }
-            double hold = at(index);
-            this.array[index] = value;
-            this.nextIndex++;
-            for(int x = index+1; x <elements();x++){
-                this.array[x] = hold;
-                hold = at(x);
-            }
-            
+
+        double hold = at(index);
+        this.array[index] = value;
+        this.nextIndex++;
+        for(int x = index+1; x < elements();x++){
+            this.array[x] = hold;
+            hold = at(x);
         }
+        /*
+        int i;
+        for(i = nextIndex; i>index;i--){
+            array[i] = array[i-1];
+        array[i] = value;
+        ++nextIndex;
+        */
+            
+
     }
+
+        
+      
+          
+            
+    }
+}
     public void insert(double value){
         insertAt(elements(),value);
     }

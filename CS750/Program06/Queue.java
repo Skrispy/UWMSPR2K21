@@ -12,12 +12,11 @@ public class Queue extends DynArray{
     }
 
     public void que(double value){
-        this.insert(value);
+        this.insertAt(0,value);
 
     }
     public double deQue(){
-    	int i = 0;
-        return this.removeAt(i);
+        return this.remove();
      
     }
     public void queueDump(){

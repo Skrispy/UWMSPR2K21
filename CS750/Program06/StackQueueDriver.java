@@ -35,7 +35,6 @@ System.out.println("\n");
    
     System.out.println("\nQueue Dump:");
     myQueue.queueDump();
-    System.out.println(myQueue.deQue());
     System.out.println("\nEmptying Queue:");
     while(!myQueue.isEmpty())
     {
