@@ -1,7 +1,7 @@
 public class Member extends Person{
     private int id;
 
-    Public Member(){
+    public Member(){
         super();
         this.id = (int)Math.floor(Math.random()*100);
     }

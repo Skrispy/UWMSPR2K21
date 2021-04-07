@@ -5,7 +5,7 @@ public class Leader extends Member{
         this.term = 1;  
         
     }
-    Public Leader(String name, int id, int term){
+    public Leader(String name, int id, int term){
         super(name,id);
         if(term>=1){
             this.term=term;
