@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Org{
     private String name;
-    private Leader leader;
+    private  Leader leader;
     private ArrayList <Member> members = new ArrayList <Member>();
     public Org(){
         super();
@@ -26,14 +26,14 @@ public class Org{
 
     public String toString(){
         String orgInfo = "Org name: "+ this.getOrg();
-        String leaderInfo = "Leader name: " + leader.getName() +" Leader term: " + Integer.toString(leader.getTerm()) + " Leader id: " + Integer.toString(leader.getId());
-        String memberInfo = "Members List: ";
+        String leaderInfo = "Leader name: " + getLeader().getName() +", Leader term: " + Integer.toString(leader.getTerm()) + ", Leader id: " + Integer.toString(leader.getId());
+        String memberInfo = ", Members List: ";
         for(Member member: members){
             String name = member.getName();
             String id = Integer.toString(member.getId());
             memberInfo += "name: " + name + " id: " + id + ", ";
         }
 
-        return orgInfo + leaderInfo + memberInfo;   
+        return orgInfo +", "+leaderInfo + memberInfo;   
     }
 }
