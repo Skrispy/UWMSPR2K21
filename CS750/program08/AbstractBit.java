@@ -14,10 +14,9 @@ public boolean getBit(){
     return this.bit;
 }
 public AbstractBit(){
-    this();
+    this(false);
 }
 public AbstractBit(boolean value){
-    super();
     this.setBit(value);
 }
 public AbstractBit(AbstractBit guest){
