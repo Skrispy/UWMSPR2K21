@@ -11,12 +11,14 @@ def classification_example() :
         # one-hot encoding for target    
     enc = OneHotEncoder()    
 
+    print(iris.data)
+    print(type(iris))
     tmp = [] # list of one-element lists    
     for i in range(len(iris.target)) :        
         tmp.append([iris.target[i]])    
     ohe = enc.fit_transform(tmp)    
     target = ohe.toarray()    
-        
+    
     # cross validation    
     kfolds = KFold(n_splits=10, shuffle=True)
     fold_auc = [] # list to store AUC of each fold    
