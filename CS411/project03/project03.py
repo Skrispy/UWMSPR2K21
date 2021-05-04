@@ -89,7 +89,7 @@ def lowHLDataA():
     for train, test in kfolds.split(new_aData, targetA) :
         # build neural network        
         nn = models.Sequential()        
-        nn.add(layers.Dense(10, activation="relu", input_dim=61))        
+        nn.add(layers.Dense(100, activation="relu", input_dim=61))        
         nn.add(layers.Dense(2, activation='softmax'))
         nn.compile(optimizer='SGD', loss='categorical_crossentropy',metrics=[tf.keras.metrics.AUC()])        
         # training        
@@ -111,7 +111,7 @@ def highHLDataA():
     for train, test in kfolds.split(new_aData, targetA) :
         # build neural network        
         nn = models.Sequential()        
-        nn.add(layers.Dense(100, activation="relu", input_dim=61))        
+        nn.add(layers.Dense(400, activation="relu", input_dim=61))        
         nn.add(layers.Dense(2, activation='softmax'))
         nn.compile(optimizer='SGD', loss='categorical_crossentropy',metrics=[tf.keras.metrics.AUC()])        
         # training        
@@ -204,6 +204,8 @@ highHLDataA()
 noHLDataB()
 lowHLDataB()
 highHLDataB()
+
+
 
 for res in results:
     print(res.method)
