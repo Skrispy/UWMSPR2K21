@@ -51,6 +51,14 @@ new_bData = pd.DataFrame.sparse.from_spmatrix(oheB, columns = ctB.get_feature_na
 #targetB = oheB.toarray()
 #print(b.target)
 #print(b.target.shape)
+
+class Result:
+    def __init__(self,method,result):
+        self.method = method
+        self.result = result
+
+results = []
+
 def noHLDataA():
     print("Building a no Hidden Layer network for dataset A")
     # cross validation    
@@ -70,6 +78,8 @@ def noHLDataA():
         print("Fold",len(fold_auc),"AUC =",s[1])    
     print("AUC for all folds:",fold_auc)    
     print("Average AUC:",np.mean(fold_auc))
+    x = Result("No Hidden Layer Dataset A",np.mean(fold_auc))
+    results.append(x)
 
 def lowHLDataA():
     print("Building a low Hidden Layer network for dataset A")
@@ -90,16 +100,18 @@ def lowHLDataA():
         print("Fold",len(fold_auc),"AUC =",s[1])    
     print("AUC for all folds:",fold_auc)    
     print("Average AUC:",np.mean(fold_auc))
+    x = Result("Low Hidden Layer Dataset A",np.mean(fold_auc))
+    results.append(x)
 
 def highHLDataA():
     print("Building a high Hidden Layer network for dataset A")
     # cross validation    
-    kfolds = KFold(n_splits=100, shuffle=True)
+    kfolds = KFold(n_splits=10, shuffle=True)
     fold_auc = [] # list to store AUC of each fold    
     for train, test in kfolds.split(new_aData, targetA) :
         # build neural network        
         nn = models.Sequential()        
-        nn.add(layers.Dense(5, activation="relu", input_dim=61))        
+        nn.add(layers.Dense(100, activation="relu", input_dim=61))        
         nn.add(layers.Dense(2, activation='softmax'))
         nn.compile(optimizer='SGD', loss='categorical_crossentropy',metrics=[tf.keras.metrics.AUC()])        
         # training        
@@ -110,15 +122,17 @@ def highHLDataA():
         print("Fold",len(fold_auc),"AUC =",s[1])    
     print("AUC for all folds:",fold_auc)    
     print("Average AUC:",np.mean(fold_auc))
+    x = Result("High Hidden Layer Dataset A",np.mean(fold_auc))
+    results.append(x)
 
 def noHLDataB(): 
     print("Building a no Hidden Layer network for dataset B")
-    kfolds = KFold(n_splits=1, shuffle=True)
+    kfolds = KFold(n_splits=10, shuffle=True)
     fold_rmse = [] # list to store AUC of each fold    
     for train, test in kfolds.split(new_bData, b.target) :
     #build nn
         nn = models.Sequential()        
-        nn.add(layers.Dense(5, activation='relu', input_dim=52))        
+        nn.add(layers.Dense(1, activation='relu', input_dim=52))        
         nn.add(layers.Dense(1, activation='relu'))        
         nn.compile(optimizer='rmsprop', loss='mse',metrics=['mae','mse'])
         # training        
@@ -132,6 +146,8 @@ def noHLDataB():
         #pyplot.show()
     print("RMSE for all folds:",fold_rmse)    
     print("Average RMSE:",np.mean(fold_rmse))
+    x = Result("No Hidden Layer Dataset B",np.mean(fold_rmse))
+    results.append(x)
 
 def lowHLDataB(): 
     print("Building a low Hidden Layer network for dataset B")
@@ -140,7 +156,7 @@ def lowHLDataB():
     for train, test in kfolds.split(new_bData, b.target) :
     #build nn
         nn = models.Sequential()        
-        nn.add(layers.Dense(7, activation='relu', input_dim=52))        
+        nn.add(layers.Dense(10, activation='relu', input_dim=52))        
         nn.add(layers.Dense(1, activation='relu'))        
         nn.compile(optimizer='rmsprop', loss='mse',metrics=['mae','mse'])
         # training        
@@ -154,6 +170,8 @@ def lowHLDataB():
         #pyplot.show()
     print("RMSE for all folds:",fold_rmse)    
     print("Average RMSE:",np.mean(fold_rmse))
+    x = Result("Low Hidden Layer Dataset B",np.mean(fold_rmse))
+    results.append(x)
 
 def highHLDataB(): 
     print("Building a high Hidden Layer network for dataset A")
@@ -162,7 +180,7 @@ def highHLDataB():
     for train, test in kfolds.split(new_bData, b.target) :
     #build nn
         nn = models.Sequential()        
-        nn.add(layers.Dense(200, activation='relu', input_dim=52))        
+        nn.add(layers.Dense(100, activation='relu', input_dim=52))        
         nn.add(layers.Dense(1, activation='relu'))        
         nn.compile(optimizer='rmsprop', loss='mse',metrics=['mae','mse'])
         # training        
@@ -176,9 +194,17 @@ def highHLDataB():
         #pyplot.show()
     print("RMSE for all folds:",fold_rmse)    
     print("Average RMSE:",np.mean(fold_rmse))
+    x = Result("High Hidden Layer Dataset B",np.mean(fold_rmse))
+    results.append(x)
 
 
-
-
-
+noHLDataA()
+lowHLDataA()
+highHLDataA()
+noHLDataB()
+lowHLDataB()
 highHLDataB()
+
+for res in results:
+    print(res.method)
+    print(res.result)
