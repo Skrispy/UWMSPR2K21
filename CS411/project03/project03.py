@@ -206,7 +206,6 @@ lowHLDataB()
 highHLDataB()
 
 
-
 for res in results:
-    print(res.method)
+    print("Method: "+ res.method)
     print(res.result)

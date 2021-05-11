@@ -12,7 +12,6 @@ def classification_example() :
     enc = OneHotEncoder()    
 
     print(iris.data)
-    print(type(iris))
     tmp = [] # list of one-element lists    
     for i in range(len(iris.target)) :        
         tmp.append([iris.target[i]])    
