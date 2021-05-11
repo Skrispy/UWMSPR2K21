@@ -11,16 +11,21 @@ from tensorflow.keras.models import load_model
 outcomes = 10
 #load data into test and train sets
 (x_train,y_train),(x_test,y_test)= fashion_mnist.load_data()
+#for error analysis
+(ox_train, oy_train), (ox_test, oy_test) = fashion_mnist.load_data()
 #normalize images scaled [0,1] range
 x_train = x_train.astype('float32')/255
 x_test = x_test.astype('float32')/255
 x_train = x_train.reshape(x_train.shape[0],28,28,1)
-x_test = x_train.reshape(x_train.shape[0],28,28,1)
+x_test = x_test.reshape(x_test.shape[0],28,28,1)
 
 
 #convert class vectors
 y_train = tensorflow.keras.utils.to_categorical(y_train,outcomes)
 y_test = tensorflow.keras.utils.to_categorical(y_test,outcomes)
+
+print(x_test.shape)
+print(y_test.shape)
 
 def m1 ():
     #build 1st
@@ -39,17 +44,17 @@ def m1 ():
     #training
     s=time.time()
     m.fit(x_train,y_train,batch_size=128,epochs=10,verbose=1)
-    e=time.time()
+    e = time.time()
     print(e-s,"seconds")
-    score = m.evaluate(x_test,y_test,verbose=1)
-    print(score)
-    predictions = m.predict()
+    score = m.evaluate(x_test, y_test, verbose=0)
+    print("Test Accuracy:", score[1])
+    predictions = m.predict(x_test)
     m.save("model1.h5")
 
 def m2 ():
     #build 2nd no droupout layer
     m = Sequential()
-    m.add(Conv2D(32,kernel_size=(5,5), activation="relu", input_shape=(28,28,1)))
+    m.add(Conv2D(64,kernel_size=(5,5), activation="relu", input_shape=(28,28,1)))
     m.add(Conv2D(32,(4,4),activation="relu"))
     m.add(MaxPooling2D(pool_size=(2,2)))
     m.add(Flatten())
@@ -66,7 +71,8 @@ def m2 ():
     print(e-s,"seconds")
     score = m.evaluate(x_test,y_test,verbose=1)
     print(score)
-    predictions = m.predict()
+    print("Test Accuracy:", score[1])
+    predictions = m.predict(x_test)
     m.save("model2.h5")
 
 def m3 ():
@@ -90,10 +96,15 @@ def m3 ():
     print(t, "seconds")
     score = m.evaluate(x_test,y_test,verbose=1)
     print(score)
-    predictions = m.predict()
+    predictions = m.predict(x_test)
+    print("Test Accuracy:", score[1])
     m.save("model3.h5")
-
+    #Error Analysis 
+    for i in range(len(predictions)) :
+        predicted = np.argmax(predictions[i])
+        if (predicted != oy_test[i]) :
+            print("Predicted:",predicted," Correct: ",oy_test[i])
+            pyplot.imshow(ox_test[i],cmap="gray")
+            pyplot.show()
 m1()
 m2()
-m3()
-
