@@ -48,8 +48,8 @@ def m1 ():
     print(e-s,"seconds")
     score = m.evaluate(x_test, y_test, verbose=0)
     print("Test Accuracy:", score[1])
-    predictions = m.predict(x_test)
-    m.save("model1.h5")
+    #predictions = m.predict(x_test)
+    #m.save("model1.h5")
 
 def m2 ():
     #build 2nd no droupout layer
@@ -72,8 +72,8 @@ def m2 ():
     score = m.evaluate(x_test,y_test,verbose=1)
     print(score)
     print("Test Accuracy:", score[1])
-    predictions = m.predict(x_test)
-    m.save("model2.h5")
+    #predictions = m.predict(x_test)
+    #m.save("model2.h5")
 
 def m3 ():
     #build 1st
@@ -98,7 +98,7 @@ def m3 ():
     print(score)
     predictions = m.predict(x_test)
     print("Test Accuracy:", score[1])
-    m.save("model3.h5")
+    #m.save("model3.h5")
     #Error Analysis 
     for i in range(len(predictions)) :
         predicted = np.argmax(predictions[i])
@@ -108,3 +108,4 @@ def m3 ():
             pyplot.show()
 m1()
 m2()
+m3()
