@@ -68,14 +68,176 @@ public class MineSweapPart extends JFrame
   // 40 pts
   private void setMines()
   {
-    for(int m = 0; m<TOTAL_MINES;m++){
-      int row = (int)Math.random()*MINE_GRID_ROWS;
-      int col = (int)Math.random()*MINE_GRID_COLS;
-      if(this.mineGrid[row][col] == IS_A_MINE_IN_GRID_VALUE){
-        m--;
-      }else{
+	int m = 0;
+    while(m<TOTAL_MINES){
+      int row = (int)Math.floor(Math.random()*MINE_GRID_ROWS);
+      int col = (int)Math.floor(Math.random()*MINE_GRID_COLS);
+      if(!(this.mineGrid[row][col] == IS_A_MINE_IN_GRID_VALUE)){
         this.mineGrid[row][col] = IS_A_MINE_IN_GRID_VALUE;
+        m++;
       }
+    }
+    this.mineGrid[15][15] = IS_A_MINE_IN_GRID_VALUE;
+    
+    for(int r = 0;r<MINE_GRID_ROWS;r++) {
+    	for(int c = 0;c<MINE_GRID_COLS;c++) {
+    		int mineCnt = 0;
+    		boolean isMine = (IS_A_MINE_IN_GRID_VALUE == this.mineGrid[r][c]);
+    		if(!isMine) {
+	    		if(r==0 && c==0) {
+	    			if(this.mineGrid[r][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			this.mineGrid[r][c]= mineCnt;
+	    			mineCnt=0;
+	    		} else if(r==0 && c<MINE_GRID_COLS-1) {
+	    			if(this.mineGrid[r][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			this.mineGrid[r][c]= mineCnt;
+	    			mineCnt=0;
+	
+	    		}else if(r==0 && c==MINE_GRID_COLS-1) {
+	    			if(this.mineGrid[r][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			this.mineGrid[r][c]= mineCnt;
+	    			mineCnt=0;
+	    		}else if(c==0 && r<MINE_GRID_ROWS-1) {
+	    			if(this.mineGrid[r-1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r-1][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			this.mineGrid[r][c]= mineCnt;
+	    			mineCnt=0;
+	    			
+	    		}else if(c==MINE_GRID_COLS-1 && r<MINE_GRID_ROWS-1) {
+	    			if(this.mineGrid[r-1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r-1][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			this.mineGrid[r][c]= mineCnt;
+	    			mineCnt=0;
+	    			
+	    		}else if(r>0&& c>0 && r<MINE_GRID_ROWS-1 && c<MINE_GRID_COLS-1) {
+	    			if(this.mineGrid[r-1][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r-1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r-1][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r+1][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			this.mineGrid[r][c]= mineCnt;
+	    			mineCnt=0;
+	    		} else if(r == MINE_GRID_ROWS-1 && c== 0) {
+	    			if(this.mineGrid[r][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r-1][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r-1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			this.mineGrid[r][c]= mineCnt;
+	    			mineCnt=0;
+	    		} else if(r==MINE_GRID_COLS-1 && c<MINE_GRID_COLS-1) {
+	    			if(this.mineGrid[r][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r-1][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r-1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r-1][c+1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			this.mineGrid[r][c]= mineCnt;
+	    			mineCnt=0;
+	
+	    		} else if(r==MINE_GRID_COLS-1 && c==MINE_GRID_COLS-1){
+	    			if(this.mineGrid[r][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r-1][c-1] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			if(this.mineGrid[r-1][c] == IS_A_MINE_IN_GRID_VALUE) {
+	    				mineCnt++;
+	    			}
+	    			this.mineGrid[r][c]= mineCnt;
+	    			mineCnt=0;
+	    		}
+    		} 
+    	}
     }
     // your code here ...
 
