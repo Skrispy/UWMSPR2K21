@@ -356,14 +356,234 @@ public class MineSweapPart extends JFrame
       // if the MyJButton that was just exposed has no mines in its perimeter
       // 20 pts
       if ( mineGrid[mjb.ROW][mjb.COL] == NO_MINES_IN_PERIMETER_GRID_VALUE )
-      {
+      {   int r=mjb.ROW;
+          int c=mjb.COL;
+          MyJButton jbn;
+          if(r==0 && c==0){
+            if(mjb. && mineGrid[r][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              
+              int i = r*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+            }
+            if(mineGrid[r+1][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+            }
+            if(mineGrid[r+1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+            }
+          }else if(r==0 && c<MINE_GRID_COLS-1) {
+	    			if(mineGrid[r][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	
+	    		}else if(r==0 && c==MINE_GRID_COLS-1) {
+	    			if(mineGrid[r][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    		}else if(c==0 && r<MINE_GRID_ROWS-1) {
+	    			if(mineGrid[r-1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r-1][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			
+	    		}else if(c==MINE_GRID_COLS-1 && r<MINE_GRID_ROWS-1) {
+	    			if(mineGrid[r-1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r-1][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			
+	    		}else if(r>0&& c>0 && r<MINE_GRID_ROWS-1 && c<MINE_GRID_COLS-1) {
+	    			if(mineGrid[r-1][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r-1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r-1][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);;
+	    			}
+	    			if(mineGrid[r][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r+1][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r+1)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    		} else if(r == MINE_GRID_ROWS-1 && c== 0) {
+	    			if(mineGrid[r][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r-1][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r-1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+
+	    		} else if(r==MINE_GRID_ROWS-1 && c<MINE_GRID_COLS-1) {
+	    			if(mineGrid[r][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r-1][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r-1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r-1][c+1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c+1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	
+	    		} else if(r==MINE_GRID_ROWS-1 && c==MINE_GRID_COLS-1){
+	    			if(mineGrid[r][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r-1][c-1] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c-1);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    			if(mineGrid[r-1][c] != IS_A_MINE_IN_GRID_VALUE) {
+              int i = (r-1)*MINE_GRID_COLS+(c);
+              jbn = (MyJButton)mjb.getParent().getComponent(i);
+              exposeCell(jbn);
+	    			}
+	    		}
+      }
+    }
 		//int index = r * MINE_GRID_COLS + c;
 		//MyJButton jbn = (MyJButton)mjb.getParent().getComponent(index);
      
         // Hint : MyJButton jbn = (MyJButton)mjb.getParent().getComponent(<linear index>);
-      }
-    }
   }
+    
+  
   // nested private class
 
 
