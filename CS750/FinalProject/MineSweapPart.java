@@ -77,7 +77,6 @@ public class MineSweapPart extends JFrame
         m++;
       }
     }
-    this.mineGrid[15][15] = IS_A_MINE_IN_GRID_VALUE;
     
     for(int r = 0;r<MINE_GRID_ROWS;r++) {
     	for(int c = 0;c<MINE_GRID_COLS;c++) {
@@ -204,7 +203,7 @@ public class MineSweapPart extends JFrame
 	    			}
 	    			this.mineGrid[r][c]= mineCnt;
 	    			mineCnt=0;
-	    		} else if(r==MINE_GRID_COLS-1 && c<MINE_GRID_COLS-1) {
+	    		} else if(r==MINE_GRID_ROWS-1 && c<MINE_GRID_COLS-1) {
 	    			if(this.mineGrid[r][c-1] == IS_A_MINE_IN_GRID_VALUE) {
 	    				mineCnt++;
 	    			}
@@ -223,7 +222,7 @@ public class MineSweapPart extends JFrame
 	    			this.mineGrid[r][c]= mineCnt;
 	    			mineCnt=0;
 	
-	    		} else if(r==MINE_GRID_COLS-1 && c==MINE_GRID_COLS-1){
+	    		} else if(r==MINE_GRID_ROWS-1 && c==MINE_GRID_COLS-1){
 	    			if(this.mineGrid[r][c-1] == IS_A_MINE_IN_GRID_VALUE) {
 	    				mineCnt++;
 	    			}
@@ -278,10 +277,16 @@ public class MineSweapPart extends JFrame
         {
           mjb.setText(MineSweapPart.UNEXPOSED_FLAGGED_MINE_SYMBOL);
           --MineSweapPart.guessedMinesLeft;
+          
           // if the MyJbutton that the mouse action occurred in is a mine
           // 10 pts
           if ( mineGrid[mjb.ROW][mjb.COL] == IS_A_MINE_IN_GRID_VALUE )
-          {
+          {	
+        	--MineSweapPart.actualMinesLeft;
+        	if(0 == MineSweapPart.actualMinesLeft) {
+        		setTitle("MineSweap                                                         YOU WIN");
+        		running = false;
+        	}
             // what else do you need to adjust?
             // could the game be over?
           }
@@ -325,22 +330,36 @@ public class MineSweapPart extends JFrame
       // 20 pts
       if ( mineGrid[mjb.ROW][mjb.COL] == IS_A_MINE_IN_GRID_VALUE )
       {  
+    	setTitle("                                                                            YOU LOSE");
+    	
+    	for(int r = 0;r<MINE_GRID_ROWS;r++) {
+    		for(int c = 0;c<MINE_GRID_COLS;c++) {
+    			int i = r*MINE_GRID_COLS+c;
+	    		MyJButton jbn = (MyJButton)mjb.getParent().getComponent(i);
+	    		if(mineGrid[r][c]== IS_A_MINE_IN_GRID_VALUE) {
+	    			jbn.setForeground(CELL_EXPOSED_FOREGROUND_COLOR_MAP[mineGrid[jbn.ROW][jbn.COL]]);
+	    			jbn.setText(EXPOSED_MINE_SYMBOL);
+	    			
+	    		} else if(jbn.getText().equals(UNEXPOSED_FLAGGED_MINE_SYMBOL)) {
+	    			jbn.setForeground(Color.red);
+	    		}
+    		}
+    	}
+    	
+    	running = false;
         // what else do you need to adjust?
         // could the game be over?
         // if the game is over - what else needs to be exposed / highlighted
         return;
-      }
       
+      }
       // if the MyJButton that was just exposed has no mines in its perimeter
       // 20 pts
       if ( mineGrid[mjb.ROW][mjb.COL] == NO_MINES_IN_PERIMETER_GRID_VALUE )
       {
-        // lots of work here - must expose all MyJButtons in its perimeter
-        // and so on
-        // and so on
-        // .
-        // .
-        // .
+		//int index = r * MINE_GRID_COLS + c;
+		//MyJButton jbn = (MyJButton)mjb.getParent().getComponent(index);
+     
         // Hint : MyJButton jbn = (MyJButton)mjb.getParent().getComponent(<linear index>);
       }
     }
