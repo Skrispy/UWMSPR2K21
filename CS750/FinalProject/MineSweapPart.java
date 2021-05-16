@@ -7,9 +7,9 @@ public class MineSweapPart extends JFrame
   private static final long serialVersionUID = 1L;
   private static final int WINDOW_HEIGHT = 760;
   private static final int WINDOW_WIDTH = 760;
-  private static final int MINE_GRID_ROWS = 16;
-  private static final int MINE_GRID_COLS = 16;
-  private static final int TOTAL_MINES = 16;
+  private static final int MINE_GRID_ROWS = 4;
+  private static final int MINE_GRID_COLS = 4;
+  private static final int TOTAL_MINES = 1;
   private static final int NO_MINES_IN_PERIMETER_GRID_VALUE = 0;
   private static final int ALL_MINES_IN_PERIMETER_GRID_VALUE = 8;
   private static final int IS_A_MINE_IN_GRID_VALUE = 9;
@@ -77,7 +77,7 @@ public class MineSweapPart extends JFrame
         m++;
       }
     }
-    
+    //i know this isnt best practice but it works and i didnt want to break druing refactor
     for(int r = 0;r<MINE_GRID_ROWS;r++) {
     	for(int c = 0;c<MINE_GRID_COLS;c++) {
     		int mineCnt = 0;
@@ -238,7 +238,6 @@ public class MineSweapPart extends JFrame
     		} 
     	}
     }
-    // your code here ...
 
   }
   
@@ -263,7 +262,7 @@ public class MineSweapPart extends JFrame
   {
     public void actionPerformed(ActionEvent event)
     {
-      if ( running )
+      if ( running)
       {
         // used to determine if ctrl or alt key was pressed at the time of mouse action
         int mod = event.getModifiers();
@@ -273,7 +272,8 @@ public class MineSweapPart extends JFrame
         // is the MyJbutton that the mouse action occurred in already exposed
         boolean exposed = mjb.getBackground().equals(CELL_EXPOSED_BACKGROUND_COLOR);
         // flag a cell : ctrl + left click
-        if ( !flagged && !exposed && (mod & ActionEvent.CTRL_MASK) != 0 )
+        //added block on guessing negative mines
+        if ( !flagged && !exposed && (mod & ActionEvent.CTRL_MASK) != 0 && guessedMinesLeft > 0)
         {
           mjb.setText(MineSweapPart.UNEXPOSED_FLAGGED_MINE_SYMBOL);
           --MineSweapPart.guessedMinesLeft;
@@ -286,6 +286,7 @@ public class MineSweapPart extends JFrame
         	if(0 == MineSweapPart.actualMinesLeft) {
         		setTitle("MineSweap                                                         YOU WIN");
         		running = false;
+        		return;
         	}
             // what else do you need to adjust?
             // could the game be over?
@@ -294,14 +295,17 @@ public class MineSweapPart extends JFrame
                    MineSweapPart.guessedMinesLeft +" Mines left");
         }
         // unflag a cell : alt + left click
-        else if ( flagged && !exposed && (mod & ActionEvent.ALT_MASK) != 0 )
+        else if ( flagged && !exposed && (mod & ActionEvent.ALT_MASK) != 0)
         {
-          mjb.setText("");
-          ++MineSweapPart.guessedMinesLeft;
+        
+        		mjb.setText("");
+        		++MineSweapPart.guessedMinesLeft;
+
           // if the MyJbutton that the mouse action occurred in is a mine
           // 10 pts
           if ( mineGrid[mjb.ROW][mjb.COL] == IS_A_MINE_IN_GRID_VALUE )
           {
+        	++MineSweapPart.actualMinesLeft;
             // what else do you need to adjust?
             // could the game be over?
           }
@@ -336,13 +340,16 @@ public class MineSweapPart extends JFrame
     		for(int c = 0;c<MINE_GRID_COLS;c++) {
     			int i = r*MINE_GRID_COLS+c;
 	    		MyJButton jbn = (MyJButton)mjb.getParent().getComponent(i);
+          String num = getGridValueStr(r, c);
 	    		if(mineGrid[r][c]== IS_A_MINE_IN_GRID_VALUE) {
 	    			jbn.setForeground(CELL_EXPOSED_FOREGROUND_COLOR_MAP[mineGrid[jbn.ROW][jbn.COL]]);
 	    			jbn.setText(EXPOSED_MINE_SYMBOL);
 	    			
-	    		} else if(jbn.getText().equals(UNEXPOSED_FLAGGED_MINE_SYMBOL)) {
+	    		} else if(jbn.getText().equals(UNEXPOSED_FLAGGED_MINE_SYMBOL) && num.equals(Integer.toString(IS_A_MINE_IN_GRID_VALUE))) {
+	    			jbn.setForeground(Color.black);
+	    		} else if(jbn.getText().equals(UNEXPOSED_FLAGGED_MINE_SYMBOL) && !num.equals(Integer.toString(IS_A_MINE_IN_GRID_VALUE))) {
 	    			jbn.setForeground(Color.red);
-	    		}
+	    		} 
     		}
     	}
     	
@@ -353,36 +360,36 @@ public class MineSweapPart extends JFrame
         return;
       
       }
-      // if the MyJButton that was just exposed has no mines in its perimeter
-      // 20 pts
-      if ( mineGrid[mjb.ROW][mjb.COL] == NO_MINES_IN_PERIMETER_GRID_VALUE )
-        for(int r =mjb.ROW-1;r<=mjb.ROW+1;r++){
-          if(r>=MINE_GRID_ROWS || r<0){
-            for(int c = mjb.COL-1;c < mjb.COL+1;c++){
-              if(c>=MINE_GRID_COLS || c<0){
-                String str = getGridValueStr(r, c);
-                String bad = "123456789";
-                if(!bad.contains(getGridValueStr(r, c)) && mineGrid[r][c] == IS_A_MINE_IN_GRID_VALUE || !str.isEmpty()){
-                  continue;
-                }else{
-                  getGridValueStr(r,c);
-                  int i = r * MINE_GRID_COLS + c;
-                  MyJButton jbn = (MyJButton) mjb.getParent().getComponent(i);
-                  String holdTxt = jbn.getText();
-                  boolean f = holdTxt.equals(UNEXPOSED_FLAGGED_MINE_SYMBOL);
-                  String holdColor = (String)jbn.getBackground();
-                  boolean exp = holdColor.equals(CELL_EXPOSED_BACKGROUND_COLOR);
-                  if(!exp && !f){
-                    exposeCell(jbn);
+      if (mineGrid[mjb.ROW][mjb.COL] == NO_MINES_IN_PERIMETER_GRID_VALUE) {
+          for(int r = mjb.ROW-1; r <= mjb.ROW+1; r++) {
+        	  //skips out of bounds cells and recursive loop
+              if(r >= MINE_GRID_ROWS || r < 0) {
+            	  continue;
+              }
+              for(int c = mjb.COL-1; c <= mjb.COL+1; c++) {
+                  if(c >= MINE_GRID_COLS||c < 0 ) {
+                	  continue;
                   }
-                }
+                  String num = getGridValueStr(r, c);
+                  //skips mines and @ symbols
+                  if(mineGrid[r][c] == IS_A_MINE_IN_GRID_VALUE || !num.isEmpty() && !num.equals("1") && !num.equals("2") && !num.equals("3") && !num.equals("4") && !num.equals("5") && !num.equals("6") && !num.equals("7") && !num.equals("8") && !num.equals("9")){
+                	  continue;
+                  } else {
+                      int i = r * MINE_GRID_COLS + c;
+                      MyJButton jbn = (MyJButton) mjb.getParent().getComponent(i);
+                      boolean f = jbn.getText().equals(MineSweapPart.UNEXPOSED_FLAGGED_MINE_SYMBOL);
+                      boolean exp = jbn.getBackground().equals(CELL_EXPOSED_BACKGROUND_COLOR);
+                      if(!f && !exp) {
+                          exposeCell(jbn);
+                      }
+                 }
               }
           }
-        }
-      }
-    }
-  }
-		//int i = r * MINE_GRID_COLS + c;
+      	}
+    	}
+    
+}
+	//int i = r * MINE_GRID_COLS + c;
 		//MyJButton jbn = (MyJButton)mjb.getParent().getComponent(index);
      
         // Hint : MyJButton jbn = (MyJButton)mjb.getParent().getComponent(<linear index>);
