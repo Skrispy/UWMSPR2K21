@@ -7,9 +7,9 @@ public class MineSweapPart extends JFrame
   private static final long serialVersionUID = 1L;
   private static final int WINDOW_HEIGHT = 760;
   private static final int WINDOW_WIDTH = 760;
-  private static final int MINE_GRID_ROWS = 4;
-  private static final int MINE_GRID_COLS = 4;
-  private static final int TOTAL_MINES = 1;
+  private static final int MINE_GRID_ROWS = 16;
+  private static final int MINE_GRID_COLS = 16;
+  private static final int TOTAL_MINES = 8;
   private static final int NO_MINES_IN_PERIMETER_GRID_VALUE = 0;
   private static final int ALL_MINES_IN_PERIMETER_GRID_VALUE = 8;
   private static final int IS_A_MINE_IN_GRID_VALUE = 9;
