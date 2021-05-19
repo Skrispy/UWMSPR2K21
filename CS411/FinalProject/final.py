@@ -31,6 +31,8 @@ data2 = ImageDataGenerator(rescale=1/255, validation_split=0.1)
 train2 = data2.flow_from_directory(unstruct_path,classes=["Blank","Fist","Five","ThumbsUp","Two","Yo"],color_mode="grayscale",subset="training",class_mode="categorical",target_size=(200,200),batch_size=20)
 test2 = data2.flow_from_directory(unstruct_path,classes=["Blank","Fist","Five","ThumbsUp","Two","Yo"],color_mode="grayscale",subset="validation",class_mode="categorical",target_size=(200,200),batch_size=20)
 
+
+
 #build model -1 for no validation set
 def trainMod1 (data,valid,output):
     model = Sequential([
@@ -66,7 +68,8 @@ def trainMod1 (data,valid,output):
     model.save(output+".h5")
     return model
 
-#trainMod(train,valid,"hands")
+#trainMod1(train,-1,"hands")
+#trainMod1(train2,-1,"hands2")
 
 #build model2 (more advanced cnn) -1 for no validation set
 def trainMod2 (data,valid,output):
@@ -157,14 +160,16 @@ def eval (t,m):
     print("Test Accuracy:", score[1])
     predictions = mod.predict(x=t,steps=len(t),verbose=1)
     rounded = np.round(predictions)
-    print(rounded)
     #confusuin matrix
     cm = confusion_matrix(y_true=t.classes,y_pred=np.argmax(predictions,axis=-1))
     cm_plot_labels=['Blank','Fist','Five','ThumbsUp','Two','Yo']
     plot_confusion_matrix(cm=cm, classes=cm_plot_labels, title='Confusion Matrix')
     plt.show()
 
-#eval(test2,"hands4.h5")
+eval(test2,"hands.h5")
+eval(test2,"hands2.h5")
+eval(test2,"hands3.h5")
+eval(test2,"hands4.h5")
 
 
 #tools used for troubleshooting/building
@@ -195,26 +200,6 @@ for i in range(0,44):
 '''
 
 #testing
-'''
-train_imgs, train_labels = next(train)
-valid_imgs, valid_labels = next(valid)
-test_imgs, test_labels = next(test)
-print(test_labels.shape)
-print(train_labels.shape)
-print(valid_labels.shape)
-print(len(train))
-'''
-#built np array for test data
-test2_arr = []
-batch_index = 0
-
-while batch_index <= test2.batch_index:
-    data = test2.next()
-    test2_arr.append(data[0])
-    batch_index = batch_index + 1
-
-# now, data_array is the numeric data of whole images
-test2_nparr = np.asarray(test2_arr)
 
 
 def testFold (path):
@@ -232,3 +217,5 @@ def plotImages(images_arr):
         ax.axis('off')
     plt.tight_layout()
     plt.show()
+
+
